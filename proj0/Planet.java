@@ -26,4 +26,15 @@ public class Planet {
         mass = p.mass;
         imgFileName = p.imgFileName;
     }
+
+
+    /** Calculate the distance between two Planets. */
+    public double calcDistance(Planet pNow) {
+        double r2; // r2 = r * r
+        double dx = this.xxPos - pNow.xxPos;
+        double dy = this.yyPos - pNow.yyPos;
+        r2 = dx*dx + dy*dy;
+        double r = Math.sqrt(r2);
+        return r;
+    }
 }
