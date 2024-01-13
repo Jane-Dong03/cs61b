@@ -33,8 +33,8 @@ public class Planet {
     /** Calculate the distance-r between two Planets. */
     public double calcDistance(Planet p) {
         double r2; // r2 = r * r
-        double dx = this.xxPos - p.xxPos;
-        double dy = this.yyPos - p.yyPos;
+        double dx = p.xxPos - this.xxPos;
+        double dy = p.yyPos - this.yyPos;
         r2 = dx*dx + dy*dy;
         double r = Math.sqrt(r2);
         return r;
@@ -48,5 +48,17 @@ public class Planet {
         double r2 = this.calcDistance(p) * this.calcDistance(p);
         F = (G * this.mass * p.mass) / r2;
         return F;
+    }
+
+    public double calcForceExertedByX(Planet p) {
+        double dx = p.xxPos - this.xxPos;
+        double Fx = this.calcForceExertedBy(p) * dx / this.calcDistance(p);
+        return Fx;
+    }
+
+    public double calcForceExertedByY(Planet p) {
+        double dx = p.yyPos - this.yyPos;
+        double Fy = this.calcForceExertedBy(p) * dx / this.calcDistance(p);
+        return Fy;
     }
 }
