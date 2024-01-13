@@ -6,6 +6,8 @@ public class Planet {
     public double mass;
     public String imgFileName;
 
+    public static final double G = 6.67e-11;
+
     /** constructor 1 */
     public Planet(double xP, double yP, double xV,
                     double yV, double m, String img) {
@@ -28,13 +30,23 @@ public class Planet {
     }
 
 
-    /** Calculate the distance between two Planets. */
-    public double calcDistance(Planet pNow) {
+    /** Calculate the distance-r between two Planets. */
+    public double calcDistance(Planet p) {
         double r2; // r2 = r * r
-        double dx = this.xxPos - pNow.xxPos;
-        double dy = this.yyPos - pNow.yyPos;
+        double dx = this.xxPos - p.xxPos;
+        double dy = this.yyPos - p.yyPos;
         r2 = dx*dx + dy*dy;
         double r = Math.sqrt(r2);
         return r;
+    }
+
+
+    /** Take in a planet, returns a double 
+     * describing the force exerted on this planet by the given planet. */
+    public double calcForceExertedBy(Planet p) {
+        double F;
+        double r2 = this.calcDistance(p) * this.calcDistance(p);
+        F = (G * this.mass * p.mass) / r2;
+        return F;
     }
 }
