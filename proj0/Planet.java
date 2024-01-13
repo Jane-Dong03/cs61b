@@ -44,45 +44,56 @@ public class Planet {
     /** Take in a planet, returns a double 
      * describing the force exerted on this planet by the given planet. */
     public double calcForceExertedBy(Planet p) {
-        double F;
+        double f;
         double r2 = this.calcDistance(p) * this.calcDistance(p);
-        F = (G * this.mass * p.mass) / r2;
-        return F;
+        f = (G * this.mass * p.mass) / r2;
+        return f;
     }
 
     public double calcForceExertedByX(Planet p) {
-        double dx = p.xxPos - this.xxPos;
-        double Fx = this.calcForceExertedBy(p) * dx / this.calcDistance(p);
-        return Fx;
+        double dX = p.xxPos - this.xxPos;
+        double fX = this.calcForceExertedBy(p) * dX / this.calcDistance(p);
+        return fX;
     }
 
     public double calcForceExertedByY(Planet p) {
-        double dx = p.yyPos - this.yyPos;
-        double Fy = this.calcForceExertedBy(p) * dx / this.calcDistance(p);
-        return Fy;
+        double dY = p.yyPos - this.yyPos;
+        double fY = this.calcForceExertedBy(p) * dY / this.calcDistance(p);
+        return fY;
     }
 
     public double calcNetForceExertedByX(Planet[] allPlanets) {
-        double netFx = 0;
+        double netFX = 0;
         for (Planet p : allPlanets) {
             if (this.equals(p)) {
                 continue;
             } else {
-                netFx += this.calcForceExertedByX(p);
+                netFX += this.calcForceExertedByX(p);
             }
         }
-        return netFx;
+        return netFX;
     }
 
     public double calcNetForceExertedByY(Planet[] allPlanets) {
-        double netFy = 0;
+        double netFY = 0;
         for (Planet p : allPlanets) {
             if (this.equals(p)) {
                 continue;
             } else {
-                netFy += this.calcForceExertedByY(p);
+                netFY += this.calcForceExertedByY(p);
             }
         }
-        return netFy;
+        return netFY;
+    }
+
+
+    /** To update the planet's position and velocity. */
+    public void update(double dt, double fX, double fY) {
+        double aX = fX / this.mass;
+        double aY = fY / this.mass;
+        this.xxVel += dt * aX;
+        this.yyVel += dt * aY;
+        this.xxPos += dt * xxVel;
+        this.yyPos += dt * yyVel;
     }
 }
