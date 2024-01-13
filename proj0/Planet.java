@@ -93,7 +93,7 @@ public class Planet {
         double aY = fY / this.mass;
         this.xxVel += dt * aX;
         this.yyVel += dt * aY;
-        this.xxPos += dt * xxVel;
-        this.yyPos += dt * yyVel;
+        this.xxPos += dt * this.xxVel;
+        this.yyPos += dt * this.yyVel;
     }
 }
