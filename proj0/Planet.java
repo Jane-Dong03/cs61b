@@ -19,6 +19,17 @@ public class Planet {
                         imgFileName = img;
                     }
 
+    /** 
+     * To check whether if 'readPlanets' is true.
+     * @Override
+    public String toString() {
+        return "Planet(xxPos:" + xxPos + ",yyPos:" + yyPos
+                + ",xxVel:" + xxVel + ",yyVel:" + yyVel + 
+                ",mass:" + mass + ",imgFileName:" + imgFileName + ")";
+    }
+    */
+    
+
     /** constructor 2 - copy */
     public Planet(Planet p) {
         xxPos = p.xxPos;
@@ -95,5 +106,12 @@ public class Planet {
         this.yyVel += dt * aY;
         this.xxPos += dt * this.xxVel;
         this.yyPos += dt * this.yyVel;
+    }
+
+
+    public void draw() {
+        String imgToDraw = "./images/" + this.imgFileName;
+        StdDraw.picture(this.xxPos, this.yyPos, imgToDraw);
+        StdDraw.show();
     }
 }

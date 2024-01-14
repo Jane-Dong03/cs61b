@@ -27,4 +27,28 @@ public class NBody {
 
         return allPlanetsArray;
     }
+
+
+    /** Takes in T, dt, and filename that you want to simulate. */
+    public static void main(String[] args) {
+        double T = Double.parseDouble(args[0]);
+        double dt = Double.parseDouble(args[1]);
+        String filename = args[2];
+        Planet[] allPlanets = readPlanets(filename);
+        double r = readRadius(filename);
+
+        String imageToDraw = "./images/starfield.jpg";
+
+        StdDraw.setScale(-r, r);
+
+        StdDraw.clear();
+        StdDraw.picture(0, 0, imageToDraw);
+        StdDraw.show();
+
+        /** To draw all of the planets. */
+        for (Planet p : allPlanets) {
+            p.draw();
+        }
+    }
+
 }
