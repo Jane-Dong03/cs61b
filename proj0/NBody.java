@@ -37,17 +37,50 @@ public class NBody {
         Planet[] allPlanets = readPlanets(filename);
         double r = readRadius(filename);
 
-        String imageToDraw = "./images/starfield.jpg";
+        StdDraw.enableDoubleBuffering();
 
-        StdDraw.setScale(-r, r);
+        double t = 0;
+        while (t != T) {
+            double[] xForces = new double[allPlanets.length];
+            double[] yForces = new double[allPlanets.length];
 
-        StdDraw.clear();
-        StdDraw.picture(0, 0, imageToDraw);
-        StdDraw.show();
+            /** 
+             * Calculates the net x and y forces for each planet.
+             */
+            for (int i = 0; i < allPlanets.length; i++) {
+                xForces[i] = allPlanets[i].calcNetForceExertedByX(allPlanets);
+                yForces[i] = allPlanets[i].calcNetForceExertedByY(allPlanets);
+            }
 
-        /** To draw all of the planets. */
-        for (Planet p : allPlanets) {
-            p.draw();
+            /** 
+             * Updates each planet's pos, vel and acceleration.
+             */
+            for (int i = 0; i < allPlanets.length; i++) {
+                allPlanets[i].update(dt, xForces[i], yForces[i]);
+            }
+
+            /** 
+             * Draws the background image.
+             */
+            String imageToDraw = "./images/starfield.jpg";
+
+            StdDraw.setScale(-r, r);
+
+            StdDraw.clear();
+            StdDraw.picture(0, 0, imageToDraw);
+            StdDraw.show();
+
+            /**
+             * Draws all of the planets.
+             */
+            for (Planet p : allPlanets) {
+                p.draw();
+            }
+
+            StdDraw.pause(10);
+
+            t  = t + dt;
+
         }
     }
 
