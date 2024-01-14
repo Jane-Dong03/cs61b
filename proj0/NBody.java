@@ -40,7 +40,7 @@ public class NBody {
         StdDraw.enableDoubleBuffering();
 
         double t = 0;
-        while (t != T) {
+        while (t < T) {
             double[] xForces = new double[allPlanets.length];
             double[] yForces = new double[allPlanets.length];
 
@@ -80,8 +80,17 @@ public class NBody {
             StdDraw.pause(10);
 
             t  = t + dt;
-
         }
+
+        StdOut.printf("d\n", allPlanets.length);
+        StdOut.printf(".2e\n", r);
+        for (int i = 0; i < allPlanets.length; i++) {
+            StdOut.printf("%15.4e %15.4e %15.4e %15.4e %15.4e %15s\n", 
+                            allPlanets[i].xxPos, allPlanets[i].yyPos, 
+                            allPlanets[i].xxVel, allPlanets[i].yyVel, 
+                            allPlanets[i].mass, allPlanets[i].imgFileName);
+        }
+
     }
 
 }
